@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenopay API Client Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3, h4 {
+            color: #D42030;
+        }
+
+        h1 {
+            border-bottom: 2px solid #D42030;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        a {
+            color: #D42030;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .code-block {
+            background-color: #f9f9f9;
+            border-left: 5px solid #D42030;
+            padding: 10px;
+            overflow-x: auto;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: Consolas, monospace;
+        }
+
+        .example-code {
+            background-color: #e8f4f8;
+            border: 1px solid #d0d0d0;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .example-code pre {
+            margin: 0;
+            overflow-x: auto;
+        }
+
+        .contact-info {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 30px;
+        }
+
+        .contact-info h3 {
+            margin-top: 0;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #D42030;
+            color: #fff;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Zenopay API Client Documentation</h1>
+        <p>Welcome to the Zenopay API Client Documentation. This guide will help you understand how to use the <code>Client</code> class to interact with the Zenopay API for creating orders, processing wallet payments, and more.</p>
+        <p>The <code>Client</code> class provides methods for sending <code>POST</code>, <code>GET</code>, and <code>DELETE</code> requests to the Zenopay API endpoints, with built-in support for authentication and error handling.</p>
+
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#client-class">Client Class</a></li>
+            <li><a href="#example-usage">Example Usage</a></li>
+            <li><a href="#error-handling">Error Handling</a></li>
+            <li><a href="#references">References</a></li>
+        </ul>
+
+        <h2 id="overview">Overview</h2>
+        <p>The <code>Client</code> class allows you to interact with Zenopay's API for various operations, including:</p>
+        <ul>
+            <li>Creating orders</li>
+            <li>Processing wallet payments</li>
+            <li>Retrieving data</li>
+            <li>Deleting resources</li>
+        </ul>
+        <p>It handles authentication, signing requests, and logging responses.</p>
+
+        <h2 id="getting-started">Getting Started</h2>
+        <p>To start using the <code>Client</code> class, you'll need:</p>
+        <ul>
+            <li><strong>Base URL</strong>: The base URL for Zenopay's API.</li>
+            <li><strong>API Key</strong>: Your unique API key for authentication.</li>
+            <li><strong>API Secret</strong>: Your unique API secret for request signing.</li>
+        </ul>
+
+        <div class="code-block">
+            <pre><code>apiKey = 'YOUR_API_KEY'
+apiSecret = 'YOUR_API_SECRET'
+baseUrl = 'https://api.zenopay.com'
+client = Client(baseUrl, apiKey, apiSecret)</code></pre>
+        </div>
+
+        <h2 id="client-class">Client Class</h2>
+
+        <h3>Initialization</h3>
+        <p>The <code>Client</code> class is initialized with the base URL, API key, and API secret.</p>
+        <div class="code-block">
+            <pre><code>class Client:
+    def __init__(self, baseUrl, apiKey, apiSecret):
+        self.baseUrl = baseUrl
+        self.apiKey = apiKey
+        self.apiSecret = apiSecret</code></pre>
+        </div>
+
+        <h3>computeHeader Method</h3>
+        <p>Generates authentication tokens and headers for requests.</p>
+        <div class="code-block">
+            <pre><code>def computeHeader(self, dictData):
+    ...
+    return authToken, timestamp, digest, signedFields</code></pre>
+        </div>
+        <p><strong>Parameters:</strong></p>
+        <ul>
+            <li><code>dictData</code>: A dictionary of request parameters.</li>
+        </ul>
+        <p><strong>Returns:</strong></p>
+        <ul>
+            <li><code>authToken</code>: Authorization header token.</li>
+            <li><code>timestamp</code>: Current timestamp in ISO format.</li>
+            <li><code>digest</code>: HMAC-SHA256 signature.</li>
+            <li><code>signedFields</code>: Comma-separated list of signed fields.</li>
+        </ul>
+
+        <h3>postFunc Method</h3>
+        <p>Sends a <code>POST</code> request to the API.</p>
+        <div class="code-block">
+            <pre><code>def postFunc(self, path, dictData):
+    ...
+    return response.json()</code></pre>
+        </div>
+        <p><strong>Parameters:</strong></p>
+        <ul>
+            <li><code>path</code>: The API endpoint path.</li>
+            <li><code>dictData</code>: A dictionary of request parameters.</li>
+        </ul>
+        <p><strong>Returns:</strong></p>
+        <ul>
+            <li>The JSON response from the API.</li>
+        </ul>
+
+        <h3>getFunc Method</h3>
+        <p>Sends a <code>GET</code> request to the API.</p>
+        <div class="code-block">
+            <pre><code>def getFunc(self, path, dictData):
+    ...
+    return response.json()</code></pre>
+        </div>
+        <p><strong>Parameters:</strong></p>
+        <ul>
+            <li><code>path</code>: The API endpoint path.</li>
+            <li><code>dictData</code>: A dictionary of request parameters.</li>
+        </ul>
+        <p><strong>Returns:</strong></p>
+        <ul>
+            <li>The JSON response from the API.</li>
+        </ul>
+
+        <h3>deleteFunc Method</h3>
+        <p>Sends a <code>DELETE</code> request to the API.</p>
+        <div class="code-block">
+            <pre><code>def deleteFunc(self, path, dictData):
+    ...
+    return response.json()</code></pre>
+        </div>
+        <p><strong>Parameters:</strong></p>
+        <ul>
+            <li><code>path</code>: The API endpoint path.</li>
+            <li><code>dictData</code>: A dictionary of request parameters.</li>
+        </ul>
+        <p><strong>Returns:</strong></p>
+        <ul>
+            <li>The JSON response from the API.</li>
+        </ul>
+
+        <h2 id="example-usage">Example Usage</h2>
+        <p>Here's an example of how to create an order and process a wallet payment:</p>
+        <div class="example-code">
+            <pre><code>if __name__ == "__main__":
+    # Initialize Client
+    apiKey = 'YOUR_API_KEY'
+    apiSecret = 'YOUR_API_SECRET'
+    baseUrl = "https://pay.zeno.africa"
+    client = Client(baseUrl, apiKey, apiSecret)
+
+    try:
+        # Create Order
+        order_id = str(uuid.uuid4())
+        orderDict = {
+            "order_id": order_id,
+            "buyer_email": "john@example.com",
+            "buyer_phone": "255744963858",
+            "amount": 8000,
+            "currency": "TZS",
+            "no_of_items": 1
+        }
+        orderPath = "/v1/checkout/"
+        orderResponse = client.postFunc(orderPath, orderDict)
+
+        if orderResponse['resultcode'] == '000':
+            # Process Wallet Payment
+            transid = str(uuid.uuid4())
+            walletPaymentDict = {
+                "transid": transid,
+                "order_id": order_id,
+                "msisdn": "255744963858",
+            }
+            walletPaymentPath = "/v1/checkout/wallet-payment"
+            walletPaymentResponse = client.postFunc(walletPaymentPath, walletPaymentDict)
+
+            if walletPaymentResponse['resultcode'] == '000':
+                print("Wallet payment successful")
+            else:
+                print("Failed to process wallet payment")
+        else:
+            print("Failed to create order")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")</code></pre>
+        </div>
+
+        <h2 id="error-handling">Error Handling</h2>
+        <p>In case of request failures, exceptions are logged with an appropriate error message.</p>
+        <div class="code-block">
+            <pre><code>except requests.exceptions.RequestException as e:
+    logger.error(f"Request failed: {e}")
+    raise</code></pre>
+        </div>
+
+        <h2 id="references">References</h2>
+        <ul>
+            <li><a href="https://www.zenopay.com/api-docs" target="_blank">Zenopay API Documentation</a></li>
+            <li><a href="https://docs.python-requests.org/en/latest/" target="_blank">Python `requests` Library</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/HMAC" target="_blank">HMAC-SHA256 Signing</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Base64" target="_blank">Base64 Encoding</a></li>
+        </ul>
+
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>For more information, please reach out to our support team:</p>
+            <p><strong>Email:</strong> <a href="mailto:support@zeno.africa">support@zenopay.com</a></p>
+            <p><strong>Phone:</strong> +255 744 963 858</p>
+            <p><strong>Website:</strong> <a href="https://www.zeno.africa" target="_blank">www.zenopay.com</a></p>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Zenopay. All rights reserved.</p>
+    </div>
+</body>
+
+</html>
