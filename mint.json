@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Api Documentation",
+  "name": "ZenoPay - Api Documentation",
   "logo": {
     "dark": "/logo/logo.png",
     "light": "/logo/logo.png"
