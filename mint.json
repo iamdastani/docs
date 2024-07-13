@@ -31,7 +31,7 @@
   "anchors": [
     {
       "name": "Wordpress Plugins",
-      "icon": "/images/wp.png",
+      "icon": "Wordpress",
       "url": "https://github.com/zenopay-wp"
     },
     {
